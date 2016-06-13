@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 QueryWikidataR: a package to use the Query Wikidata service in R
 ----------------------------------------------------------------
@@ -82,3 +83,7 @@ get\_wikipedia\_articles
 ------------------------
 
 This functions reads the elements that have been queried and resulted in the Wikidata list. It then downloads all the items that are not already in the folder *wikidata\_items*(through the previous function). It then reads one by one all the items files and extract from them the list of Wikipedia articles with languages for each item. It finally stores the result in a dataframe with three variables (item identifier, title of article and language).
+=======
+# QueryWikidataR
+QueryWikidataR
+>>>>>>> 466499df36e3807299c239b562b60d43268f1cf1
