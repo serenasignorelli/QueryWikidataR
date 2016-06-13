@@ -23,7 +23,7 @@ QueryWikidataR can be installed from GitHub.
 
 ``` r
 library(devtools)
-install_github("QueryWikidataR", "serenasignorelli", subdir = "QueryWikidataR") 
+install_github("QueryWikidataR", "serenasignorelli") 
 ```
 
 query\_location functions
