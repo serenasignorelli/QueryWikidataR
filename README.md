@@ -1,0 +1,2 @@
+# QueryWikidataR
+QueryWikidataR
