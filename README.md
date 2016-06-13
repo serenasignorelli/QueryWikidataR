@@ -1,3 +1,4 @@
+
 QueryWikidataR: a package to use the Query Wikidata service in R
 ----------------------------------------------------------------
 
@@ -22,7 +23,7 @@ QueryWikidataR can be installed from GitHub.
 
 ``` r
 library(devtools)
-install_github("QueryWikidataR", "serenasignorelli") 
+install_github("serenasignorelli/QueryWikidataR") 
 ```
 
 query\_location functions
