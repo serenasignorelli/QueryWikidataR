@@ -49,9 +49,9 @@ Each of the functions require the same set of parameters as the previous paragra
 
 `query_location_category_1` allows you to get the categories from the first type of query. The only parameter required here is the location Wikidata identifier. You can put it in an object or simply put it in quotes and put it in the function.
 
-`query_location_2` gets the categories from the second type of query. It requires the location code and the length of the radius that you want to virtually draw around the location. The radius has to be in kilometers, and also here you can put it in an object or just specify the number as the second parameter of the function. 
+`query_location_category_2` gets the categories from the second type of query. It requires the location code and the length of the radius that you want to virtually draw around the location. The radius has to be in kilometers, and also here you can put it in an object or just specify the number as the second parameter of the function. 
 
-`query_location_3` returns the categories from the third query. Here you need more parameters, in addition to the location code. You have to choose two locations that will represent two opposite corners of the box that you want to virtually draw around the location. Then, just put in two objects or simply in quotes in the function the two Wikidata identifiers. After each corner identifier, you need to specify which corner they represent, in the format: `'NorthEast'` `'NorthWest'` `'SouthEast'` `'SouthWest'`.
+`query_location_category_3` returns the categories from the third query. Here you need more parameters, in addition to the location code. You have to choose two locations that will represent two opposite corners of the box that you want to virtually draw around the location. Then, just put in two objects or simply in quotes in the function the two Wikidata identifiers. After each corner identifier, you need to specify which corner they represent, in the format: `'NorthEast'` `'NorthWest'` `'SouthEast'` `'SouthWest'`.
 
 The results of these queries will be stored in the folder *wikidata_categories*. 
 
