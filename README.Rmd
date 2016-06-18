@@ -31,11 +31,11 @@ install_github("serenasignorelli/QueryWikidataR")
 
 These three functions will allow you to query for geo-located items in Wikidata. Each of the functions require a different set of parameters.
 
-`query_location_1` allows you to perform the first type of query. The only parameter required here is the location Wikidata identifier. You can put it in an object or simply put it in quotes and put it in the function.
+`query_location_1` allows you to perform the first type of query. The only parameter required here is the location Wikidata identifier. You can put it in an object or simply put it in quotes and put it in the function. If you want you can also add a language parameter (in the form of "fr" for French and so on). If you don't specify a language, English will be chosen as the default language.
 
-`query_location_2` perform the second type of query. It requires the location code and the length of the radius that you want to virtually draw around the location. The radius has to be in kilometers, and also here you can put it in an object or just specify the number as the second parameter of the function. 
+`query_location_2` perform the second type of query. It requires the location code and the length of the radius that you want to virtually draw around the location. The radius has to be in kilometers, and also here you can put it in an object or just specify the number as the second parameter of the function. If you want you can also add a language parameter (in the form of "fr" for French and so on). If you don't specify a language, English will be chosen as the default language.
 
-`query_location_3` returns the results of the third query. Here you need more parameters, in addition to the location code. You have to choose two locations that will represent two opposite corners of the box that you want to virtually draw around the location. Then, just put in two objects or simply in quotes in the function the two Wikidata identifiers. After each corner identifier, you need to specify which corner they represent, in the format: `'NorthEast'` `'NorthWest'` `'SouthEast'` `'SouthWest'`.
+`query_location_3` returns the results of the third query. Here you need more parameters, in addition to the location code. You have to choose two locations that will represent two opposite corners of the box that you want to virtually draw around the location. Then, just put in two objects or simply in quotes in the function the two Wikidata identifiers. After each corner identifier, you need to specify which corner they represent, in the format: `'NorthEast'` `'NorthWest'` `'SouthEast'` `'SouthWest'`. If you want you can also add a language parameter (in the form of "fr" for French and so on). If you don't specify a language, English will be chosen as the default language.
 
 The results of these queries will be stored in the folder *wikidata_lists*. 
 
@@ -47,11 +47,11 @@ In particular, you will get a list of items with the property, which comes from 
 
 Each of the functions require the same set of parameters as the previous paragraph functions. 
 
-`query_location_property_1` allows you to get the properties from the first type of query. The only parameter required here is the location Wikidata identifier. You can put it in an object or simply put it in quotes and put it in the function.
+`query_location_property_1` allows you to get the properties from the first type of query. The only parameter required here is the location Wikidata identifier. You can put it in an object or simply put it in quotes and put it in the function. If you want you can also add a language parameter (in the form of "fr" for French and so on). If you don't specify a language, English will be chosen as the default language.
 
-`query_location_property_2` gets the properties from the second type of query. It requires the location code and the length of the radius that you want to virtually draw around the location. The radius has to be in kilometers, and also here you can put it in an object or just specify the number as the second parameter of the function. 
+`query_location_property_2` gets the properties from the second type of query. It requires the location code and the length of the radius that you want to virtually draw around the location. The radius has to be in kilometers, and also here you can put it in an object or just specify the number as the second parameter of the function. If you want you can also add a language parameter (in the form of "fr" for French and so on). If you don't specify a language, English will be chosen as the default language.
 
-`query_location_property_3` returns the properties from the third query. Here you need more parameters, in addition to the location code. You have to choose two locations that will represent two opposite corners of the box that you want to virtually draw around the location. Then, just put in two objects or simply in quotes in the function the two Wikidata identifiers. After each corner identifier, you need to specify which corner they represent, in the format: `'NorthEast'` `'NorthWest'` `'SouthEast'` `'SouthWest'`.
+`query_location_property_3` returns the properties from the third query. Here you need more parameters, in addition to the location code. You have to choose two locations that will represent two opposite corners of the box that you want to virtually draw around the location. Then, just put in two objects or simply in quotes in the function the two Wikidata identifiers. After each corner identifier, you need to specify which corner they represent, in the format: `'NorthEast'` `'NorthWest'` `'SouthEast'` `'SouthWest'`. If you want you can also add a language parameter (in the form of "fr" for French and so on). If you don't specify a language, English will be chosen as the default language.
 
 The results of these queries will be stored in the folder *wikidata_properties*. 
 
@@ -95,7 +95,7 @@ The procedure to get this output ges through four functions:
 
 1. `read_property_identifier`. This function reads the output from the `query_location_property` function and gives you as output a dataframe with the Wikidata identifier of the property and the property itself. It requires as a parameter the location Wikidata identifier.
 
-2. `query_property_class` simply performs the query to Wikidata in order to get the class to which the property belongs to. The parameter to pass is the output of function at point 1. The files downloaded will be saved into *wikidata_classes* folder. 
+2. `query_property_class` simply performs the query to Wikidata in order to get the class to which the property belongs to. The parameter to pass is the output of function at point 1. The files downloaded will be saved into *wikidata_classes* folder. If you want you can also add a language parameter (in the form of "fr" for French and so on). If you don't specify a language, English will be chosen as the default language.
 
 3. `read_property_class` reads the results of the query and creates a dataframe with the property name and the related class(es) it belongs to. Also in this case the parameter has to be the output from function at point 1.
 

@@ -25,13 +25,14 @@ read_property_identifier <- function(city_code){
 #'
 #' This function gets the list of class from Wikidata property items' identifier that has been obtained through the query_location_property functions and read through the read_property_identifier function
 #' @param items The list of property items' identifiers in a dataframe format (as output from read_property_identifier)
+#' @param lang Language of the name of Wikidata items. If not specified, English will be the default language
 #' @return This functions simply performs ther query and downloads the JSON files, so you will have to launch the read_property_class to have a result
 #' @export
 
-query_property_class <- function(items) {
+query_property_class <- function(items, lang = "en") {
   items_list <- items$item
   for (i in 1:length(items_list)) {
-    query <- paste0('SELECT%20%3FclassLabel%20%0AWHERE%20%7B%0A%20%20wd%3A', items_list[i], '%20wdt%3AP279%20%3Fclass%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22%20%7D%0A%7D%0A%0A')
+    query <- paste0('SELECT%20%3FclassLabel%20%0AWHERE%20%7B%0A%20%20wd%3A', items_list[i], '%20wdt%3AP279%20%3Fclass%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22', lang, '%22%20%7D%0A%7D%0A%0A')
     download.file(paste0(api_url, query, "&format=json"), paste0('./wikidata_classes/', items_list[i], '.txt'))
   }
 }
