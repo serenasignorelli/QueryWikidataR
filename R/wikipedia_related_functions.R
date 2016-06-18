@@ -1,3 +1,5 @@
+dir.create('./wikidata_items', showWarnings = FALSE)
+
 #' Get Wikidata items'content
 #'
 #' This function gets the Wikidata items files, saves them in a cache and extract from them the Wikidata content
@@ -7,11 +9,10 @@
 
 get_wikidata <- function(items) {
   items_list <- items$item
-  dir.create('./wikidata_items', showWarnings = FALSE)
   for (i in 1:length(items_list)) {
-    file_name <- paste0('/wikidata_items/item_', items_list[i], '.txt')
+    file_name <- paste0('./wikidata_items/item_', items_list[i], '.txt')
     # Find out which files need to be downloaded
-    to_download <- !file_exists(file_name) | refresh
+    to_download <- !file.exists(file_name)
     print(paste0("Files to download:", sum(to_download)))
     # Download files not in the cache
     if (any(to_download)) {
@@ -22,7 +23,7 @@ get_wikidata <- function(items) {
   # Read json files and extract wikidata
   res <- vector("list", length = length(items_list))
   counter <- 0
-  file_list <- paste0("/wikidata_items/item_", items_list, ".txt")
+  file_list <- paste0("./wikidata_items/item_", items_list, ".txt")
   for (one_file in file_list) {
     text <- readLines(one_file)
     if (jsonlite::validate(text)) {
