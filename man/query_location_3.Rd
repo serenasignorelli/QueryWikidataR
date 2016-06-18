@@ -5,7 +5,7 @@
 \title{Query Wikidata using a box around the location (3)}
 \usage{
 query_location_3(city_code, first_corner_city_code, first_city_corner,
-  second_corner_city_code, second_city_corner)
+  second_corner_city_code, second_city_corner, lang = "en")
 }
 \arguments{
 \item{city_code}{The Wikidata identifier ('Q____')}
@@ -17,6 +17,8 @@ query_location_3(city_code, first_corner_city_code, first_city_corner,
 \item{second_corner_city_code}{The Wikidata identifier of the second box location('Q____')}
 
 \item{second_city_corner}{The corner at which the second box location is ('NorthEast', 'NorthWest', 'SouthEast', 'SouthWest')}
+
+\item{lang}{Language of the name of Wikidata items. If not specified, English will be the default language}
 }
 \value{
 The list of Wikidata items that are geolocated into that box around the location with Wikidata identifier

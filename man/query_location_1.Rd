@@ -4,10 +4,12 @@
 \alias{query_location_1}
 \title{Query Wikidata using the administrative entity (1)}
 \usage{
-query_location_1(city_code)
+query_location_1(city_code, lang = "en")
 }
 \arguments{
 \item{city_code}{The Wikidata identifier ('Q____')}
+
+\item{lang}{Language of the name of Wikidata items. If not specified, English will be the default language}
 }
 \value{
 The list of Wikidata items that are geolocated into that administrative entity
