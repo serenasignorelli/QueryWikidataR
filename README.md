@@ -14,7 +14,7 @@ There are three different ways to query for geo-located items:
 
 3.  Using a box around the city. In this case you don't have to specify the item that you are analyzing but you have to choose two items that are placed at two opposite corners with respect to your target location. Then you'll have to specify at which corner they are placed, in the format: SouthWest, SouthEast, NorthWest, NorthEast.
 
-Note that this package will work with two local folders that operate as caches. Once you load the package, this two folders will be created in your environment: *wikidata\_lists*, *wikidata\_items* and *wikidata\_categories*.
+Note that this package will work with two local folders that operate as caches. Once you load the package, this four folders will be created in your environment: *wikidata\_lists*, *wikidata\_items*, *wikidata\_properties* and *wikidata\_classes*.
 
 Installation
 ------------
@@ -39,37 +39,37 @@ These three functions will allow you to query for geo-located items in Wikidata.
 
 The results of these queries will be stored in the folder *wikidata\_lists*.
 
-query\_location\_category functions
+query\_location\_property functions
 -----------------------------------
 
-These three functions will allow you to get the categories of the geo-located items in Wikidata that you have downloaded with previous functions.
+These three functions will allow you to get the properties of the geo-located items in Wikidata that you have downloaded with previous functions.
 
-In particular, you will get a list of items with the category, which comes from the Wikidata property *Instance of* (P31).
+In particular, you will get a list of items with the property, which comes from the Wikidata property *Instance of* (P31).
 
 Each of the functions require the same set of parameters as the previous paragraph functions.
 
-`query_location_category_1` allows you to get the categories from the first type of query. The only parameter required here is the location Wikidata identifier. You can put it in an object or simply put it in quotes and put it in the function.
+`query_location_property_1` allows you to get the properties from the first type of query. The only parameter required here is the location Wikidata identifier. You can put it in an object or simply put it in quotes and put it in the function.
 
-`query_location_category_2` gets the categories from the second type of query. It requires the location code and the length of the radius that you want to virtually draw around the location. The radius has to be in kilometers, and also here you can put it in an object or just specify the number as the second parameter of the function.
+`query_location_property_2` gets the properties from the second type of query. It requires the location code and the length of the radius that you want to virtually draw around the location. The radius has to be in kilometers, and also here you can put it in an object or just specify the number as the second parameter of the function.
 
-`query_location_category_3` returns the categories from the third query. Here you need more parameters, in addition to the location code. You have to choose two locations that will represent two opposite corners of the box that you want to virtually draw around the location. Then, just put in two objects or simply in quotes in the function the two Wikidata identifiers. After each corner identifier, you need to specify which corner they represent, in the format: `'NorthEast'` `'NorthWest'` `'SouthEast'` `'SouthWest'`.
+`query_location_property_3` returns the properties from the third query. Here you need more parameters, in addition to the location code. You have to choose two locations that will represent two opposite corners of the box that you want to virtually draw around the location. Then, just put in two objects or simply in quotes in the function the two Wikidata identifiers. After each corner identifier, you need to specify which corner they represent, in the format: `'NorthEast'` `'NorthWest'` `'SouthEast'` `'SouthWest'`.
 
-The results of these queries will be stored in the folder *wikidata\_categories*.
+The results of these queries will be stored in the folder *wikidata\_properties*.
 
-Note that not all the items that resulted from the `query_location` functions have a category. Also some of them could have multiple categories.
+Note that not all the items that resulted from the `query_location` functions have a property. Also some of them could have multiple properties.
 
-That's why this query is performed separately, so that you have as an output a dataframe with the identifier and the category. You will be able to join this dataframe to the items dataframe in a subsequent step of your analysis.
+That's why this query is performed separately, so that you have as an output a dataframe with the identifier and the property. You will be able to join this dataframe to the items dataframe in a subsequent step of your analysis.
 
 read\_list functions
 --------------------
 
-These two functions have been built to read the downloaded text files with items and categories.
+These two functions have been built to read the downloaded text files with items and properties.
 
 They only need one parameter, which is the location Wikidata identifier.
 
 `read_items_list`reads the .txt file as a JSON file from the folder *wikidata\_items* and creates a dataframe that will have four variables (item identifier, name of the item, latitude and longitude)
 
-`read_category_list` reads the .txt file as a JSON file from the folder *wikidata\_categories* and creates a dataframe with only two variables (item identifier and category)
+`read_property_list` reads the .txt file as a JSON file from the folder *wikidata\_properties* and creates a dataframe with only two variables (item identifier and property)
 
 get\_wikidata
 -------------
@@ -82,3 +82,21 @@ get\_wikipedia\_articles
 ------------------------
 
 This functions reads the elements that have been queried and resulted in the Wikidata list. It then downloads all the items that are not already in the folder *wikidata\_items*(through the previous function). It then reads one by one all the items files and extract from them the list of Wikipedia articles with languages for each item. It finally stores the result in a dataframe with three variables (item identifier, title of article and language).
+
+Class related functions
+-----------------------
+
+A new group of functions has been added to the package. These allow you to get also the class to which a Wikidata item belongs to. Remember that you will have to perform the `query_location_property` procedure **before** running this group of functions.
+
+The procedure to get this output ges through four functions:
+
+1.  `read_property_identifier`. This function reads the output from the `query_location_property` function and gives you as output a dataframe with the Wikidata identifier of the property and the property itself. It requires as a parameter the location Wikidata identifier.
+
+2.  `query_property_class` simply performs the query to Wikidata in order to get the class to which the property belongs to. The parameter to pass is the output of function at point 1. The files downloaded will be saved into *wikidata\_classes* folder.
+
+3.  `read_property_class` reads the results of the query and creates a dataframe with the property name and the related class(es) it belongs to. Also in this case the parameter has to be the output from function at point 1.
+
+4.  `link_property_class` is the most important function of the section. It links the list of Wikidata items that has been queries in the beginning with properties and classes. In this case we have three parameters:
+    -   The list of properties obtained from `read_property_identifier`
+    -   The list of classes obtained from `read_property_class`
+    -   The list of classes obtained from `read_property_list`
