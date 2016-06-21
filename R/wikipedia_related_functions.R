@@ -70,11 +70,11 @@ get_wikipedia_articles <- function(items) {
   # prepare datasets with articles and urls
   title <- wikidata %>%
     filter(delete == "title ") %>%
-    mutate(article = stringr::str_trim(keep, side = c("left"))) %>%
+    mutate(article = gsub("\"", "", stringr::str_trim(keep, side = c("left")))) %>%
     select(-delete, -keep)
   url <- wikidata %>%
     filter(delete == "url ") %>%
-    mutate(lang = substr(keep, 9, regexpr("wiki", keep)-2)) %>%
+    mutate(lang = substr(keep, regexpr("https://", keep)+8, regexpr("wiki", keep)-2)) %>%
     select(-delete, -keep)
   # unify datasets
   wikidata <- cbind(title,url) %>%
