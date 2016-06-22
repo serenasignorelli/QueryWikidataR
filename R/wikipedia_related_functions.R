@@ -74,7 +74,7 @@ get_wikipedia_articles <- function(items) {
     select(-delete, -keep)
   url <- wikidata %>%
     filter(delete == "url ") %>%
-    mutate(lang = substr(keep, regexpr("https://", keep)+8, regexpr("wiki", keep)-2)) %>%
+    mutate(lang = substr(keep, regexpr("https://", keep)+8, regexpr("wikipedia", keep)-2)) %>%
     select(-delete, -keep)
   # unify datasets
   wikidata <- cbind(title,url) %>%
