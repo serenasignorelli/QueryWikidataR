@@ -96,7 +96,6 @@ get_wikipedia_articles <- function(items) {
 #' @export
 
 get_projects_articles <- function(items) {
-  dir.create('./wikidata_items', showWarnings = FALSE)
   # get wikidata
   wikidata <- get_wikidata(items)
   # transform wikidata list
@@ -123,13 +122,13 @@ get_projects_articles <- function(items) {
            site = substr(keep, regexpr("https://", keep)+8+nchar(lang)+1, regexpr(".org", keep)-1)) %>%
     select(-delete, -keep)
   # unify datasets
-  wikidata2 <- cbind(title, url) %>%
+  wikidata2 <- cbind(title, lang = url$lang) %>%
     mutate(item = id) %>%
     select(-id) %>%
-    mutate(site = gsub(lang, "", site)) %>%
-    select(-id)%>%
+    mutate(site = gsub(lang, "", url$site)) %>%
     mutate(item = unlist(item))
-  wikidata2 <- as.data.frame(wikidata2)
+  wikidata2 <- as.data.frame(wikidata2)%>%
+    select(item, site, lang, article)
   #return output
   return(wikidata2)
 }
