@@ -123,16 +123,16 @@ get_projects_articles <- function(items) {
   url <- wikidata %>%
     filter(delete == "url ") %>%
     mutate(lang = substr(keep, regexpr("https://", keep)+8, regexpr("wiki", keep)-2),
-           site = substr(keep, regexpr("https://", keep)+8+nchar(lang)+1, regexpr(".org", keep)-1)) %>%
+           project = substr(keep, regexpr("https://", keep)+8+nchar(lang)+1, regexpr(".org", keep)-1)) %>%
     select(-delete, -keep)
   # unify datasets
   wikidata2 <- cbind(title, lang = url$lang) %>%
     mutate(item = id) %>%
     select(-id) %>%
-    mutate(site = gsub(lang, "", url$site)) %>%
+    mutate(project = gsub(lang, "", url$project)) %>%
     mutate(item = unlist(item))
   wikidata2 <- as.data.frame(wikidata2)%>%
-    select(item, site, lang, article)
+    select(item, project, lang, article)
   #return output
   return(wikidata2)
 }
