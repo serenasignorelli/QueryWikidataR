@@ -65,8 +65,8 @@ get_wikipedia_articles <- function(items) {
   wikidata <- splitstackshape::concat.split.multiple(wikidata, "sitelinks", seps=",", "long")
   # consider only rows with title and url
   wikidata <- wikidata %>%
-    filter(grepl("title =", sitelinks) | grepl("url =", sitelinks))%>%
-    tidyr::separate(sitelinks, sep = "=", c('delete', 'keep'))
+    filter(grepl("title =", wikidata$sitelinks) | grepl("url =", wikidata$sitelinks))%>%
+    tidyr::separate(wikidata$sitelinks, sep = "=", c('delete', 'keep'))
   # prepare datasets with articles and urls
   title <- wikidata %>%
     filter(delete == "title ") %>%
