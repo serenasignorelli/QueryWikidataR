@@ -10,7 +10,7 @@ wikidata_url <- 'https://www.wikidata.org/wiki/Special:EntityData/'
 query_location_1 <- function(city_code){
   dir.create('./wikidata_lists', showWarnings = FALSE)
   api_url <- "https://query.wikidata.org/bigdata/namespace/wdq/sparql?query="
-  query <- paste0('SELECT%20DISTINCT%20%3Fitem%20%3Fname%20%3Fcoord%20%0AWHERE%20%7B%0A%20%20%20%20%3Fitem%20wdt%3AP131*%20wd%3A', city_code, '%20.%0A%20%20%20%20%3Fitem%20wdt%3AP625%20%3Fcoord%20.%0A%20%20%20SERVICE%20wikibase%3Alabel%20%7B%0A%20%20%20%20%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22%.%0A%20%20%20%20%20%3Fitem%20rdfs%3Alabel%20%3Fname%0A%20%20%20%20%7D%0A%7D%0AORDER%20BY%20ASC%20(%3Fname)')
+  query <- paste0('SELECT%20DISTINCT%20%3Fitem%20%3Fname%20%3Fcoord%20%0AWHERE%20%7B%0A%20%20%20%20%3Fitem%20wdt%3AP131*%20wd%3A', city_code, '%20.%0A%20%20%20%20%3Fitem%20wdt%3AP625%20%3Fcoord%20.%0A%20%20%20SERVICE%20wikibase%3Alabel%20%7B%0A%20%20%20%20%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%0A%20%20%20%20%20%3Fitem%20rdfs%3Alabel%20%3Fname%0A%20%20%20%20%7D%0A%7D%0AORDER%20BY%20ASC%20(%3Fname)')
   download.file(paste0(api_url, query, "&format=json"), paste0('./wikidata_lists/', city_code, '.txt'))
 }
 
