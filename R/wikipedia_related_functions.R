@@ -1,5 +1,3 @@
-dir.create('./wikidata_items', showWarnings = FALSE)
-
 #' Get Wikidata items'content
 #'
 #' This function gets the Wikidata items files, saves them in a cache and extract from them the Wikidata content
@@ -51,6 +49,7 @@ get_wikidata <- function(items) {
 #' @export
 
 get_wikipedia_articles <- function(items) {
+  dir.create('./wikidata_items', showWarnings = FALSE)
   # get wikidata
   wikidata <- get_wikidata(items)
   # transform wikidata list
@@ -73,7 +72,7 @@ get_wikipedia_articles <- function(items) {
     select(-delete, -keep)
   url <- wikidata %>%
     filter(delete == "url ") %>%
-    mutate(lang = substr(keep, regexpr("https://", keep)+8, regexpr("wikipedia", keep)-2),
+    mutate(lang = substr(keep, regexpr("https://", keep)+8, regexpr("wiki", keep)-2),
            site = substr(keep, regexpr("https://", keep)+8+nchar(lang)+1, regexpr(".org", keep)-1)) %>%
     select(-delete, -keep)
   # unify datasets
@@ -83,6 +82,52 @@ get_wikipedia_articles <- function(items) {
     mutate(site = gsub(lang, "", site)) %>%
     filter(site == "wikipedia") %>%
     select(-id, -site)%>%
+    mutate(item = unlist(item))
+  wikidata2 <- as.data.frame(wikidata2)
+  #return output
+  return(wikidata2)
+}
+
+#' Get list of articles on the various Wikimedia Foundation projects with languages
+#'
+#' This function gets the list of articles on the various Wikimedia Foundation projects with languages from the Wikidata items
+#' @param items The list of items in a dataframe format (as output from read_items_list)
+#' @return A dataframe with four variables: item identifier, title of article, language and name of the Wikimedia project it belongs to
+#' @export
+
+get_projects_articles <- function(items) {
+  dir.create('./wikidata_items', showWarnings = FALSE)
+  # get wikidata
+  wikidata <- get_wikidata(items)
+  # transform wikidata list
+  wikidata <- do.call(cbind, wikidata)
+  # transpose wikidata list
+  wikidata <- t(wikidata)
+  # create dataframe and filter considering only wikipedia items
+  wikidata <- as.data.frame(wikidata)%>%
+    select(-pageid, -ns, -title, -lastrevid, -modified, -type, -labels, -descriptions, -aliases, -claims)
+  # split column sitelinks
+  wikidata <- splitstackshape::concat.split.multiple(wikidata, "sitelinks", seps=",", "long")
+  # consider only rows with title and url
+  wikidata <- wikidata %>%
+    filter(grepl("title =", sitelinks) | grepl("url =", sitelinks))%>%
+    tidyr::separate(sitelinks, sep = "=", c('delete', 'keep'))
+  # prepare datasets with articles and urls
+  title <- wikidata %>%
+    filter(delete == "title ") %>%
+    mutate(article = gsub("\"", "", stringr::str_trim(keep, side = c("left")))) %>%
+    select(-delete, -keep)
+  url <- wikidata %>%
+    filter(delete == "url ") %>%
+    mutate(lang = substr(keep, regexpr("https://", keep)+8, regexpr("wiki", keep)-2),
+           site = substr(keep, regexpr("https://", keep)+8+nchar(lang)+1, regexpr(".org", keep)-1)) %>%
+    select(-delete, -keep)
+  # unify datasets
+  wikidata2 <- cbind(title, url) %>%
+    mutate(item = id) %>%
+    select(-id) %>%
+    mutate(site = gsub(lang, "", site)) %>%
+    select(-id)%>%
     mutate(item = unlist(item))
   wikidata2 <- as.data.frame(wikidata2)
   #return output

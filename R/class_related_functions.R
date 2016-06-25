@@ -1,6 +1,5 @@
 api_url <- "https://query.wikidata.org/bigdata/namespace/wdq/sparql?query="
 wikidata_url <- 'https://www.wikidata.org/wiki/Special:EntityData/'
-dir.create('./wikidata_classes', showWarnings = FALSE)
 
 #' Read the list of properties with its identifier
 #'
@@ -30,6 +29,7 @@ read_property_identifier <- function(city_code){
 #' @export
 
 query_property_class <- function(items, lang = "en") {
+  dir.create('./wikidata_classes', showWarnings = FALSE)
   items_list <- items$item
   for (i in 1:length(items_list)) {
     query <- paste0('SELECT%20%3FclassLabel%20%0AWHERE%20%7B%0A%20%20wd%3A', items_list[i], '%20wdt%3AP279%20%3Fclass%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22', lang, '%22%20%7D%0A%7D%0A%0A')
