@@ -81,12 +81,12 @@ You don't need to run it, it is already called from the function `get_wikipedia_
 get\_wikipedia\_articles
 ------------------------
 
-This functions reads the elements that have been queried and resulted in the Wikidata list. It then downloads all the items that are not already in the folder *wikidata\_items*(through the previous function). It then reads one by one all the items files and extract from them the list of Wikipedia articles with languages for each item. It finally stores the result in a dataframe with three variables (item identifier, title of article and language).
+This functions reads the elements that have been queried and resulted in the Wikidata list. It then downloads all the items that are not already in the folder *wikidata\_items* (through the previous function). It then reads one by one all the items files and extract from them the list of Wikipedia articles with languages for each item. It finally stores the result in a dataframe with three variables (item identifier, title of article and language).
 
 get\_projects\_articles
 -----------------------
 
-This functions reads the elements that have been queried and resulted in the Wikidata list. It then downloads all the items that are not already in the folder *wikidata\_items*(through the previous function). It then reads one by one all the items files and extract from them the list of all the articles in all Wikimedia Foundation projects, with languages and the project the article belongs to for each item. It finally stores the result in a dataframe with four variables (item identifier, project the article belongs to, language and title of article).
+This functions reads the elements that have been queried and resulted in the Wikidata list. It then downloads all the items that are not already in the folder *wikidata\_items* (through the get\_wikidata function). It then reads one by one all the items files and extract from them the list of all the articles in all Wikimedia Foundation projects, with languages and the project the article belongs to for each item. It finally stores the result in a dataframe with four variables (item identifier, project the article belongs to, language and title of article).
 
 Class related functions
 -----------------------
