@@ -4,14 +4,12 @@
 \alias{query_location_2}
 \title{Query Wikidata using a radius around the city (2)}
 \usage{
-query_location_2(city_code, radius, lang = "en")
+query_location_2(city_code, radius)
 }
 \arguments{
 \item{city_code}{The Wikidata identifier ('Q____')}
 
 \item{radius}{A number that represents the radius in kilometers}
-
-\item{lang}{Language of the name of Wikidata items. If not specified, English will be the default language}
 }
 \value{
 The list of Wikidata items that are geolocated into that radius around the location with Wikidata identifier

@@ -4,12 +4,10 @@
 \alias{query_property_class}
 \title{Get list of class from the identifier of the properties}
 \usage{
-query_property_class(items, lang = "en")
+query_property_class(items)
 }
 \arguments{
 \item{items}{The list of property items' identifiers in a dataframe format (as output from read_property_identifier)}
-
-\item{lang}{Language of the name of Wikidata items. If not specified, English will be the default language}
 }
 \value{
 This functions simply performs ther query and downloads the JSON files, so you will have to launch the read_property_class to have a result
