@@ -6,6 +6,7 @@
 #' @export
 
 get_wikidata <- function(items) {
+  wikidata_url <- 'https://www.wikidata.org/wiki/Special:EntityData/'
   items_list <- items$item
   for (i in 1:length(items_list)) {
     file_name <- paste0('./wikidata_items/item_', items_list[i], '.txt')
