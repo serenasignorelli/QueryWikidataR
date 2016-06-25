@@ -55,6 +55,7 @@ query_location_3 <- function(city_code, first_corner_city_code, first_city_corne
 #' @export
 
 read_items_list <- function(city_code){
+  library(dplyr)
   json <- jsonlite::fromJSON(paste0('./wikidata_lists/', city_code, '.txt'), simplifyDataFrame = TRUE)
   json_item <-json$results$bindings$item
   json_name <-json$results$bindings$name

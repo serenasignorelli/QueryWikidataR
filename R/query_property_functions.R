@@ -52,6 +52,7 @@ query_location_property_3 <- function(city_code, first_corner_city_code, first_c
 #' @return A dataframe with the Wikidata identifier of the item and its property (there could be multiple categories for each item)
 #' @export
 read_property_list <- function(city_code){
+  library(dplyr)
   json <- jsonlite::fromJSON(paste0('./wikidata_properties/', city_code, '.txt'), simplifyDataFrame = TRUE)
   json_item <-json$results$bindings$item
   json_property <- json$results$bindings$propertyLabel

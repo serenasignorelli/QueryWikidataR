@@ -9,6 +9,7 @@ wikidata_url <- 'https://www.wikidata.org/wiki/Special:EntityData/'
 #' @export
 
 read_property_identifier <- function(city_code){
+  library(dplyr)
   json <- jsonlite::fromJSON(paste0('./wikidata_properties/', city_code, '.txt'), simplifyDataFrame = TRUE)
   json_property <-json$results$bindings$property
   json_property_Label <- json$results$bindings$propertyLabel
@@ -45,6 +46,7 @@ query_property_class <- function(items) {
 #' @export
 
 read_property_class <- function(items) {
+  library(dplyr)
   items_list <- items$item
   class_df <- data.frame(item = character(), class = character())
   for (i in 1:length(items_list)) {
@@ -78,6 +80,7 @@ read_property_class <- function(items) {
 #' @export
 
 link_property_class <- function(properties_id, classes, properties) {
+  library(dplyr)
   linked <- properties_id %>%
     full_join(classes, by = 'item')%>%
     select(-item)%>%

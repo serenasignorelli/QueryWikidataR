@@ -50,6 +50,7 @@ get_wikidata <- function(items) {
 #' @export
 
 get_wikipedia_articles <- function(items) {
+  library(dplyr)
   dir.create('./wikidata_items', showWarnings = FALSE)
   # get wikidata
   wikidata <- get_wikidata(items)
@@ -97,6 +98,8 @@ get_wikipedia_articles <- function(items) {
 #' @export
 
 get_projects_articles <- function(items) {
+  library(dplyr)
+  dir.create('./wikidata_items', showWarnings = FALSE)
   # get wikidata
   wikidata <- get_wikidata(items)
   # transform wikidata list
