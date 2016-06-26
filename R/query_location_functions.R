@@ -58,10 +58,8 @@ read_items_list <- function(city_code){
     mutate(item = gsub('http://www.wikidata.org/entity/', '', value)) %>%
     select (-type, -value) %>%
     mutate(name = json_name$value,
-           point = json_coord$value,
-           lat = substr(point, 7, regexpr(" ", point)-1),
-           long = substr(point, regexpr(" ", point), regexpr(")", point)-1)) %>%
-    select(-point) %>%
+           lat  = get_lat_long(json_coord$value)[1],
+           long = get_lat_long(json_coord$value)[2]) %>%
     distinct()
   return(items_list)
 }
