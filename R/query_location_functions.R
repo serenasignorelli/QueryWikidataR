@@ -7,7 +7,7 @@
 query_location_1 <- function(city_code){
   dir.create('./wikidata_lists', showWarnings = FALSE)
   query <- paste0('SELECT%20DISTINCT%20%3Fitem%20%3Fname%20%3Fcoord%20%0AWHERE%20%7B%0A%20%20%20%20%3Fitem%20wdt%3AP131*%20wd%3A', city_code, '%20.%0A%20%20%20%20%3Fitem%20wdt%3AP625%20%3Fcoord%20.%0A%20%20%20SERVICE%20wikibase%3Alabel%20%7B%0A%20%20%20%20%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%0A%20%20%20%20%20%3Fitem%20rdfs%3Alabel%20%3Fname%0A%20%20%20%20%7D%0A%7D%0AORDER%20BY%20ASC%20(%3Fname)')
-  download.file(paste0(api_url(), query, "&format=json"), paste0('./wikidata_lists/', city_code, '.txt'))
+  download.file(paste0(api_url(), query, "&format=json"), paste0('./wikidata_lists/', city_code, '.json'))
 }
 
 #' Query Wikidata using a radius around the city (2)
@@ -21,7 +21,7 @@ query_location_1 <- function(city_code){
 query_location_2 <- function(city_code, radius){
   dir.create('./wikidata_lists', showWarnings = FALSE)
   query <- paste0('SELECT%20%3Fitem%20%3Fname%20%3Fcoord%20%0AWHERE%20%7B%0A%20wd%3A', city_code, '%20wdt%3AP625%20%3FmainLoc%20.%20%0A%20SERVICE%20wikibase%3Aaround%20%7B%20%0A%20%3Fitem%20wdt%3AP625%20%3Fcoord%20.%20%0A%20bd%3AserviceParam%20wikibase%3Acenter%20%3FmainLoc%20.%20%0A%20bd%3AserviceParam%20wikibase%3Aradius%20%22', radius, '%22%20.%20%0A%20%7D%0A%20SERVICE%20wikibase%3Alabel%20%7B%0A%20%20%20%20%20%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%0A%20%20%20%20%20%3Fitem%20rdfs%3Alabel%20%3Fname%0A%20%7D%0A%7D%0AORDER%20BY%20ASC%20(%3Fname)%0A')
-  download.file(paste0(api_url(), query, "&format=json"), paste0('./wikidata_lists/', city_code, '.txt'))
+  download.file(paste0(api_url(), query, "&format=json"), paste0('./wikidata_lists/', city_code, '.json'))
 }
 
 #' Query Wikidata using a box around the location (3)
@@ -38,7 +38,7 @@ query_location_2 <- function(city_code, radius){
 query_location_3 <- function(city_code, first_corner_city_code, first_city_corner, second_corner_city_code, second_city_corner){
   dir.create('./wikidata_lists', showWarnings = FALSE)
   query <- paste0('SELECT%20%3Fitem%20%3Fname%20%3Fcoord%20%0AWHERE%20%7B%0A%20%20wd%3A', first_corner_city_code, '%20wdt%3AP625%20%3FFirstloc%20.%0A%20%20wd%3A', second_corner_city_code, '%20wdt%3AP625%20%3FSecondloc%20.%0A%20%20SERVICE%20wikibase%3Abox%20%7B%0A%20%20%20%20%20%20%3Fitem%20wdt%3AP625%20%3Fcoord%20.%0A%20%20%20%20%20%20bd%3AserviceParam%20wikibase%3Acorner',first_city_corner,  '%20%3FFirstloc%20.%0A%20%20%20%20%20%20bd%3AserviceParam%20wikibase%3Acorner', second_city_corner, '%20%3FSecondloc%20.%0A%20%20%20%20%7D%0ASERVICE%20wikibase%3Alabel%20%7B%0A%20%20%20%20%20%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%0A%20%20%20%3Fitem%20rdfs%3Alabel%20%3Fname%0A%20%7D%0A%7D%0AORDER%20BY%20ASC%20(%3Fname)%0A%0A')
-  download.file(paste0(api_url(), query, "&format=json"), paste0('./wikidata_lists/', city_code, '.txt'))
+  download.file(paste0(api_url(), query, "&format=json"), paste0('./wikidata_lists/', city_code, '.json'))
 }
 
 #' Read the list of items that have been queried
@@ -50,7 +50,7 @@ query_location_3 <- function(city_code, first_corner_city_code, first_city_corne
 
 read_items_list <- function(city_code){
   library(dplyr)
-  json <- jsonlite::fromJSON(paste0('./wikidata_lists/', city_code, '.txt'), simplifyDataFrame = TRUE)
+  json <- jsonlite::fromJSON(paste0('./wikidata_lists/', city_code, '.json'), simplifyDataFrame = TRUE)
   json_item <-json$results$bindings$item
   json_name <-json$results$bindings$name
   json_coord <-json$results$bindings$coord
