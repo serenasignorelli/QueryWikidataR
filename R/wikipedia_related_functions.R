@@ -6,7 +6,6 @@
 #' @export
 
 get_wikidata <- function(items) {
-  wikidata_url <- 'https://www.wikidata.org/wiki/Special:EntityData/'
   items_list <- items$item
   for (i in 1:length(items_list)) {
     file_name <- paste0('./wikidata_items/item_', items_list[i], '.txt')
@@ -15,7 +14,7 @@ get_wikidata <- function(items) {
     print(paste0("Files to download:", sum(to_download)))
     # Download files not in the cache
     if (any(to_download)) {
-      url <- paste0(wikidata_url, items_list[i], '.json')
+      url <- paste0(wikidata_url(), items_list[i], '.json')
       download.file(url[to_download], file_name[to_download])
     }
   }
