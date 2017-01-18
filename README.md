@@ -122,3 +122,4 @@ The functions are the following:
 2.  `read_item_from_property_code` This function reads the output from the `query_item_from_property_code` function and gives you as output a dataframe with the Wikidata identifier of the item, the name of the item and the code that you set. The parameters to pass are again the property code (P____) and the code you decided to set. 
 
 NB. These functions work using one property and one single value at a time. In the future I'll evaluate the possibility to vectorize them. 
+Don't forget to put the property in quotes(i.e. 'P3344').
