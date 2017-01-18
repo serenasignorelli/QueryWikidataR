@@ -105,3 +105,20 @@ The procedure to get this output ges through four functions:
     -   The list of properties obtained from `read_property_identifier`
     -   The list of classes obtained from `read_property_class`
     -   The list of classes obtained from `read_property_list`
+    
+Finding and item associated with a property
+-----------------------
+
+New functions have been added to the package. These allow you to set a property and a value of this property and get the related Wikidata item. These two functions are particularly useful if you need to set a value of a property related to an ID (i.e. Vote Smart ID). 
+
+The parameters that are needed are the property code (i.e. P3344) and set a value of this parameter (i.e. 558). 
+
+You will get a dataframe with the Wikidata identifier of the item (i.e. Q432431), the name of the item and the code that you set. 
+
+The functions are the following:
+
+1.  `query_item_from_property_code`. It simply performs the query to Wikidata in order to get the item related to that particular property code. The parameters to pass are the property code (P____) and the code you decided to set. 
+
+2.  `read_item_from_property_code` This function reads the output from the `query_item_from_property_code` function and gives you as output a dataframe with the Wikidata identifier of the item, the name of the item and the code that you set. The parameters to pass are again the property code (P____) and the code you decided to set. 
+
+NB. These functions work using one property and one single value at a time. In the future I'll evaluate the possibility to vectorize them. 
