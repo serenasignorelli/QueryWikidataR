@@ -106,7 +106,7 @@ The procedure to get this output ges through four functions:
     -   The list of classes obtained from `read_property_class`
     -   The list of classes obtained from `read_property_list`
     
-Finding and item associated with a property
+Finding an item associated with a property
 -----------------------
 
 New functions have been added to the package. These allow you to set a property and a value of this property and get the related Wikidata item. These two functions are particularly useful if you need to set a value of a property related to an ID (i.e. Vote Smart ID). 
