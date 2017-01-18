@@ -1,10 +1,10 @@
 Package: QueryWikidataR
 Type: Package
 Title: Use the Query Wikidata service in R
-Version: 0.2.0
+Version: 0.3.0
 Author: Serena Signorelli <serena.signorelli@unibg.it>
 Maintainer: Serena Signorelli <serena.signorelli@unibg.it>
-Description: QueryWikidataR allows to query for Wikidata items with geocoordinates in three different ways, to get the list of related Wikipedia articles with languages and to get the properties (P31) and the classes (P279) they belong to. The package now only performs limited queries related to items with geocoordinates, but its functionalities will be enhanced.
+Description: QueryWikidataR allows to query for Wikidata items with geocoordinates in three different ways, to get the list of related Wikipedia articles with languages and to get the properties (P31) and the classes (P279) they belong to. The package also allows to query for an item from a known property and a value of this property that you can decide to set. The functionalities of the package will be enhanced.
 License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
