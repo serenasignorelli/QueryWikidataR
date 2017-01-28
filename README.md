@@ -26,12 +26,29 @@ library(devtools)
 install_github("serenasignorelli/QueryWikidataR") 
 ```
 
+Usage
+-----
+
+``` r
+library('QueryWikidataR')
+
+# current version
+packageVersion("QueryWikidataR")
+```
+
+    ## [1] '0.2.0'
+
 query\_location functions
 -------------------------
 
 These three functions will allow you to query for geo-located items in Wikidata. Each of the functions require a different set of parameters.
 
 `query_location_1` allows you to perform the first type of query. The only parameter required here is the location Wikidata identifier. You can put it in an object or simply put it in quotes and put it in the function.
+
+``` r
+# Palermo
+query_location_1('Q2656')
+```
 
 `query_location_2` perform the second type of query. It requires the location code and the length of the radius that you want to virtually draw around the location. The radius has to be in kilometers, and also here you can put it in an object or just specify the number as the second parameter of the function.
 
@@ -68,6 +85,19 @@ These two functions have been built to read the downloaded text files with items
 They only need one parameter, which is the location Wikidata identifier.
 
 `read_items_list`reads the .txt file as a JSON file from the folder *wikidata\_items* and creates a dataframe that will have four variables (item identifier, name of the item, latitude and longitude)
+
+``` r
+res <- read_items_list('Q2656')
+head(res)
+```
+
+    ##        item      name      lat     long
+    ## 1  Q1072500  Q1072500 13.35402 38.11874
+    ## 2  Q1072509  Q1072509 13.35402 38.11874
+    ## 3  Q1492337  Q1492337 13.35402 38.11874
+    ## 4 Q16621503 Q16621503 13.35402 38.11874
+    ## 5 Q17639553 Q17639553 13.35402 38.11874
+    ## 6 Q18785619 Q18785619 13.35402 38.11874
 
 `read_property_list` reads the .txt file as a JSON file from the folder *wikidata\_properties* and creates a dataframe with only two variables (item identifier and property)
 

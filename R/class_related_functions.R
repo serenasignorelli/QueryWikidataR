@@ -1,6 +1,3 @@
-api_url <- "https://query.wikidata.org/bigdata/namespace/wdq/sparql?query="
-wikidata_url <- 'https://www.wikidata.org/wiki/Special:EntityData/'
-
 #' Read the list of properties with its identifier
 #'
 #' This function reads the list of properties that has been downloaded with each identifier (of the property). You should use this function ONLY when you need to search for classes.
@@ -30,11 +27,10 @@ read_property_identifier <- function(city_code){
 
 query_property_class <- function(items) {
   dir.create('./wikidata_classes', showWarnings = FALSE)
-  api_url <- "https://query.wikidata.org/bigdata/namespace/wdq/sparql?query="
   items_list <- items$item
   for (i in 1:length(items_list)) {
     query <- paste0('SELECT%20%3FclassLabel%20%0AWHERE%20%7B%0A%20%20wd%3A', items_list[i], '%20wdt%3AP279%20%3Fclass%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22%20%7D%0A%7D%0A%0A')
-    download.file(paste0(api_url, query, "&format=json"), paste0('./wikidata_classes/', items_list[i], '.txt'))
+    download.file(paste0(api_url(), query, "&format=json"), paste0('./wikidata_classes/', items_list[i], '.txt'))
   }
 }
 
